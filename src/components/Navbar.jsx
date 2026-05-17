@@ -32,6 +32,12 @@ export default function Navbar() {
           <a href="#dashboard" className="transition hover:text-cyan-300">
             Dashboard
           </a>
+          <a href="#impact" className="transition hover:text-cyan-300">
+            Impact
+          </a>
+          <a href="#uniqueness" className="transition hover:text-cyan-300">
+            Uniqueness
+          </a>
         </div>
 
         <a

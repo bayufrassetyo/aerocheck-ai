@@ -3,6 +3,7 @@ import Hero from "./components/Hero";
 import Analyzer from "./components/Analyzer";
 import Dashboard from "./components/Dashboard";
 import Sections from "./components/Sections";
+import PolishSections from "./components/PolishSections";
 import Footer from "./components/Footer";
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
       <Sections />
       <Analyzer />
       <Dashboard />
+      <PolishSections />
       <Footer />
     </main>
   );

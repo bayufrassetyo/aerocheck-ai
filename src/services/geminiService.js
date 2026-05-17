@@ -7,9 +7,6 @@ import {
 
 const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
-console.log("Gemini API key loaded:", Boolean(apiKey));
-console.log("Gemini API key preview:", apiKey ? apiKey.slice(0, 8) + "..." : "MISSING");
-
 const ai = apiKey
   ? new GoogleGenAI({
       apiKey
@@ -117,7 +114,6 @@ export async function analyzeMaintenanceNote(maintenanceNote) {
     const rawText =
       typeof response.text === "function" ? response.text() : response.text;
 
-    console.log("RAW GEMINI RESPONSE:", rawText);
 
     if (!rawText) {
       throw new Error("Empty Gemini response.");
@@ -125,7 +121,6 @@ export async function analyzeMaintenanceNote(maintenanceNote) {
 
     const parsed = parseGeminiJsonResponse(rawText);
 
-    console.log("PARSED GEMINI JSON:", parsed);
 
     if (!parsed) {
       throw new Error("Failed to parse Gemini JSON response.");
@@ -133,7 +128,6 @@ export async function analyzeMaintenanceNote(maintenanceNote) {
 
     const normalized = normalizeAnalysisResult(parsed);
 
-    console.log("NORMALIZED GEMINI RESULT:", normalized);
 
     if (!normalized) {
       throw new Error("Failed to normalize Gemini result.");
