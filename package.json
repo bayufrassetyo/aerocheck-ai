@@ -1,7 +1,8 @@
 {
   "name": "aerocheck-ai",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "AeroCheck AI is a Gemini-powered aviation maintenance record assistant for analyzing maintenance notes, detecting risk levels, identifying missing information, and generating follow-up actions.",
   "type": "module",
   "scripts": {
     "dev": "vite",
