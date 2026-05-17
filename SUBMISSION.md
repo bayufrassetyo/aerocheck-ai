@@ -106,3 +106,9 @@ AeroCheck AI helps aviation maintenance teams turn complex maintenance notes int
 ## Live URL
 
 https://aerocheck-ai-1076823773310.asia-southeast2.run.app
+
+---
+
+## GitHub Repository
+
+https://github.com/bayufrassetyo/aerocheck-ai
