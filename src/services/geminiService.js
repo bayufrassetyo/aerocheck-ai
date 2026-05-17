@@ -37,20 +37,21 @@ Return only valid JSON using this exact structure:
     "Finding 3"
   ],
   "missingInformation": [
-    "Missing or unclear information 1",
-    "Missing or unclear information 2"
+    "Missing information 1",
+    "Missing information 2",
+    "Missing information 3"
   ],
   "recommendedActions": [
-    "Recommended action 1",
-    "Recommended action 2",
-    "Recommended action 3"
+    "Action 1",
+    "Action 2",
+    "Action 3"
   ],
   "suggestedStatus": "Open, In Progress, Closed, or Requires Follow-up",
   "confidenceScore": 0,
   "uiTags": [
-    "Short tag 1",
-    "Short tag 2",
-    "Short tag 3"
+    "tag 1",
+    "tag 2",
+    "tag 3"
   ]
 }
 
@@ -74,9 +75,13 @@ Important rules:
 - If corrective action is not completed, mark it as missing or incomplete.
 - If release status is not stated, mark it as missing.
 - Use professional aviation maintenance documentation language.
-- Keep the response concise and operationally useful.
+- Keep summary maximum 2 sentences.
+- keyFindings must contain exactly 3 items.
+- missingInformation must contain maximum 5 items.
+- recommendedActions must contain maximum 4 items.
+- uiTags must contain maximum 4 short tags.
+- Each list item must be concise and under 120 characters.
 - confidenceScore must be a number between 0 and 100.
-- uiTags must contain 2 to 5 short tags.
 - Return only valid JSON.
 - The first character of your response must be {
 - The last character of your response must be }
@@ -106,7 +111,7 @@ export async function analyzeMaintenanceNote(maintenanceNote) {
       config: {
         temperature: 0.2,
         topP: 0.8,
-        maxOutputTokens: 1200,
+        maxOutputTokens: 2500,
         responseMimeType: "application/json"
       }
     });
