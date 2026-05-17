@@ -1,5 +1,9 @@
 # AeroCheck AI
 
+## Project Description
+
+AeroCheck AI is a Gemini-powered aviation maintenance assistant that transforms unstructured maintenance notes into structured operational insights for faster decision-making.
+
 **Smart Operations Assistant for Aviation Maintenance Records**
 
 AeroCheck AI is a Gemini-powered aviation maintenance record assistant designed to help technical record staff, maintenance planners, and engineering support teams transform unstructured maintenance notes into clear operational insights.
@@ -10,9 +14,13 @@ This project was built for **#JuaraVibeCoding** under the **Business Ops — The
 
 ## Overview
 
-Aviation maintenance records are often technical, inconsistent, and time-consuming to review manually. Important information such as aircraft registration, ATA chapter, corrective action, risk level, and release status can be missed during manual review.
+Aviation maintenance records are often technical, inconsistent, and time-consuming to review manually. Critical information such as aircraft registration, ATA chapter, corrective actions, risk levels, and release status can be missed during manual review.
 
-AeroCheck AI helps solve this problem by using Gemini AI to analyze maintenance notes and generate structured outputs:
+AeroCheck AI addresses this by converting raw maintenance notes into structured insights using Gemini AI.
+
+AeroCheck AI bridges the gap between raw operational maintenance notes and decision-ready engineering intelligence.
+
+The system transforms unstructured maintenance inputs into structured outputs that support faster and more consistent operational decision-making:
 
 - Concise maintenance summary
 - Risk level classification
@@ -77,6 +85,12 @@ The application allows users to:
 
 - **Copy Analysis**  
   Allows users to copy structured analysis output.
+
+---
+
+## Why It Matters
+
+As aviation operations become more data-driven, maintenance teams face increasing documentation workload. Tools like AeroCheck AI help reduce cognitive load and improve operational safety by standardizing how maintenance notes are interpreted.
 
 ---
 

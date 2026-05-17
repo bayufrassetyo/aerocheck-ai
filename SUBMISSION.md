@@ -67,7 +67,7 @@ AeroCheck AI helps teams:
 
 Unlike generic AI chatbots, AeroCheck AI is built around a specific aviation maintenance documentation workflow. It is inspired by real technical record and production planning control processes.
 
-The wow factor is that the app does not only summarize text. It converts raw operational notes into structured decision-support outputs.
+The system simulates real aviation Maintenance, Repair & Operations (MRO) workflows by transforming unstructured technical logs into structured engineering decision-support outputs similar to real-world technical record systems.
 
 ---
 
@@ -76,6 +76,8 @@ The wow factor is that the app does not only summarize text. It converts raw ope
 Gemini is used to analyze custom maintenance notes and return structured JSON output. This output is then rendered into user-friendly dashboard cards.
 
 The AI output includes risk level classification, missing information detection, suggested status, and recommended follow-up actions.
+
+The model is prompted to behave as an aviation maintenance analyst to ensure structured, consistent, and operationally relevant outputs.
 
 ---
 
@@ -99,7 +101,13 @@ All maintenance records are fictional and safe for public demo purposes. No real
 
 ## Final Pitch
 
-AeroCheck AI helps aviation maintenance teams turn complex maintenance notes into clear operational actions using Gemini AI. It improves documentation clarity, speeds up review, and supports better follow-up decisions.
+AeroCheck AI is a smart operations assistant for aviation maintenance records.
+
+The problem is that maintenance notes are often long, technical, and inconsistent, making manual review slower and increasing the risk of missed follow-up details.
+
+With AeroCheck AI, users can select a demo maintenance case or paste a custom maintenance note. Gemini AI analyzes the note and returns a structured result, including summary, risk level, key findings, missing information, recommended actions, suggested status, confidence score, and tags.
+
+This helps technical record and maintenance planning teams review notes faster, improve documentation clarity, and support better follow-up decisions.
 
 ---
 
