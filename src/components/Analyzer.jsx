@@ -6,12 +6,13 @@ import {
   Clipboard,
   ClipboardCheck,
   FileText,
+  Loader2,
   RotateCcw,
-  ShieldAlert,
   Sparkles
 } from "lucide-react";
 import { maintenanceReports } from "../data/maintenanceReports";
 import { demoAnalyses } from "../data/demoAnalyses";
+import { analyzeMaintenanceNote } from "../services/geminiService";
 
 const riskStyles = {
   Low: "border-green-400/30 bg-green-500/10 text-green-300",
@@ -32,6 +33,7 @@ export default function Analyzer() {
   const [analysisResult, setAnalysisResult] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [copyMessage, setCopyMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const selectedCase = useMemo(() => {
     return maintenanceReports.find((report) => report.id === selectedCaseId);
@@ -53,46 +55,33 @@ export default function Analyzer() {
     }
   }
 
-  function handleAnalyze() {
-    if (!maintenanceNote.trim()) {
-      setErrorMessage("Please select a demo case or enter a maintenance note.");
-      setAnalysisResult(null);
-      return;
-    }
+  async function handleAnalyze() {
+  if (!maintenanceNote.trim()) {
+    setErrorMessage("Please select a demo case or enter a maintenance note.");
+    setAnalysisResult(null);
+    return;
+  }
 
-    setErrorMessage("");
-    setCopyMessage("");
+  setErrorMessage("");
+  setCopyMessage("");
+  setIsLoading(true);
 
+  try {
     if (selectedCaseId && demoAnalyses[selectedCaseId]) {
+      await new Promise((resolve) => setTimeout(resolve, 700));
       setAnalysisResult(demoAnalyses[selectedCaseId]);
       return;
     }
 
-    setAnalysisResult({
-      summary:
-        "Demo mode is currently active. This custom note will be analyzed with Gemini in the next integration step.",
-      riskLevel: "Medium",
-      riskReason:
-        "A default medium risk level is assigned because custom Gemini analysis is not connected yet.",
-      keyFindings: [
-        "A maintenance note was submitted manually.",
-        "Custom AI analysis will be enabled during Gemini API integration.",
-        "Manual review is recommended for now."
-      ],
-      missingInformation: [
-        "Gemini API integration is not active yet.",
-        "Structured custom analysis is not available in demo mode."
-      ],
-      recommendedActions: [
-        "Use one of the demo cases for full structured analysis.",
-        "Continue to the next development step to connect Gemini API.",
-        "Review the custom note manually if needed."
-      ],
-      suggestedStatus: "Requires Follow-up",
-      confidenceScore: 0,
-      uiTags: ["Demo Mode", "Custom Input", "Gemini Pending"]
-    });
+    const result = await analyzeMaintenanceNote(maintenanceNote);
+    setAnalysisResult(result);
+  } catch (error) {
+    console.error(error);
+    setErrorMessage("Analysis failed. A safe fallback result is displayed.");
+  } finally {
+    setIsLoading(false);
   }
+}
 
   function handleReset() {
     setSelectedCaseId("");
@@ -100,6 +89,7 @@ export default function Analyzer() {
     setAnalysisResult(null);
     setErrorMessage("");
     setCopyMessage("");
+    setIsLoading(false);
   }
 
   async function handleCopyResult() {
@@ -215,10 +205,20 @@ export default function Analyzer() {
             <div className="grid gap-3 sm:grid-cols-[1fr_auto]">
               <button
                 onClick={handleAnalyze}
+                disabled={isLoading}
                 className="inline-flex items-center justify-center gap-2 rounded-2xl bg-cyan-400 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-300"
               >
-                <Sparkles size={18} />
-                Analyze Demo Case
+                {isLoading ? (
+                  <>
+                    <Loader2 size={18} className="animate-spin" />
+                    Analyzing...
+                  </>
+                ) : (
+                  <>
+                    <Sparkles size={18} />
+                    Analyze Demo Case
+                  </>
+                )}
               </button>
 
               <button
@@ -262,7 +262,9 @@ export default function Analyzer() {
             )}
           </div>
 
-          {!analysisResult ? (
+          {isLoading ? (
+            <LoadingResult />
+          ) : !analysisResult ? (
             <EmptyResult />
           ) : (
             <ResultCards result={analysisResult} copyMessage={copyMessage} />
@@ -293,6 +295,42 @@ function EmptyResult() {
         </p>
       </div>
     </div>
+  );
+}
+
+function LoadingResult() {
+  return (
+    <div className="min-h-[520px] rounded-2xl border border-slate-800 bg-slate-950/70 p-6">
+      <div className="mb-6 flex items-center gap-3">
+        <Loader2 className="animate-spin text-cyan-300" size={24} />
+        <div>
+          <p className="font-semibold text-white">
+            AeroCheck AI is reviewing the maintenance note...
+          </p>
+          <p className="text-sm text-slate-400">
+            Extracting risk, missing information, and recommended actions.
+          </p>
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        <SkeletonBlock className="h-24" />
+        <div className="grid gap-4 md:grid-cols-2">
+          <SkeletonBlock className="h-32" />
+          <SkeletonBlock className="h-32" />
+        </div>
+        <SkeletonBlock className="h-36" />
+        <SkeletonBlock className="h-36" />
+      </div>
+    </div>
+  );
+}
+
+function SkeletonBlock({ className = "" }) {
+  return (
+    <div
+      className={`animate-pulse rounded-2xl border border-slate-800 bg-slate-900 ${className}`}
+    />
   );
 }
 
